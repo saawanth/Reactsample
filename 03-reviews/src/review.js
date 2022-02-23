@@ -8,16 +8,6 @@ const Review = () => {
     const [ reviewIndex, setReviewIndex ] = useState(0);
     const { name, job, image, text } = people[reviewIndex];
 
-    const handlePersonOverflow = (reviewIndex) =>{
-      if (reviewIndex === people.length){
-          return 0;
-      }
-      if (reviewIndex === 0){
-          return 4;
-      }
-      return reviewIndex;
-    }
-
     const getPrevPerson = () => {
        setReviewIndex((reviewIndex) =>{
            const prePerson = reviewIndex - 1;
@@ -31,6 +21,29 @@ const Review = () => {
           return handlePersonOverflow(nextPerson);
       })
     }
+
+    const handlePersonOverflow = (reviewIndex) =>{
+        if (reviewIndex === people.length){
+            return 0;
+        }
+        if (reviewIndex === 0){
+            return 4;
+        }
+        return reviewIndex;
+    }
+
+    const randomPerson = () => {
+        let randomPerson =Math.round( Math.random() * people.length) ;
+        if( randomPerson === reviewIndex){
+           return randomPerson + 1
+        }
+        setReviewIndex(handlePersonOverflow(randomPerson));
+        
+        
+    }
+
+
+
       
     return (
         <article className='review'>
@@ -51,8 +64,8 @@ const Review = () => {
                     <FaChevronRight/>
                 </button>
             </div>
-            <div className='random-btn'>
-                suprise-me
+            <div className='random-btn' onClick={randomPerson}>
+                suprise-me 
             </div>
         </article>
     );
